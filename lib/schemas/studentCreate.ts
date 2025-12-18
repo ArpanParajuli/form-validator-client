@@ -115,6 +115,7 @@ export const ScholarshipDTO = z.object({
 
 export const StudentDTO = z.object({
   Id: z.number().int().positive().optional(),
+  OwnerId: z.string().optional(),
   ImagePath: fileSchema.optional(),
   FirstName: z.string().min(1, "First Name is required").max(100),
   MiddleName: z.string().optional(),

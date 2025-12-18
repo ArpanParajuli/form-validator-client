@@ -72,10 +72,10 @@ export  function Dashboard() {
     if (window.confirm(`Are you sure you want to delete student ${studentId}?`)) {
       alert(`API call to delete student ${studentId} would go here.`);
 
-      await DeleteStudent(studentId.toString());
+      await DeleteStudent(studentId);
 
        setStudents(currentStudents =>
-          currentStudents.filter(student => student.Id !== studentId)
+          currentStudents.filter(student => student.OwnerId !== studentId)
         );
     }
   };
@@ -103,6 +103,7 @@ export  function Dashboard() {
                   {student.FirstName} {student.LastName}
                 </h2>
                 <p className="text-sm text-gray-500">ID: {student.Id}</p>
+                 <p className="text-sm text-gray-500">ID: {student.OwnerId}</p>
               </div>
 
               <img
@@ -132,13 +133,13 @@ export  function Dashboard() {
 
               <div className="flex justify-end gap-2 mt-6">
                 <button
-                  onClick={() => handleEdit(student.Id)}
+                  onClick={() => handleEdit(student.OwnerId)}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(student.Id)}
+                  onClick={() => handleDelete(student.OwnerId)}
                   className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
                 >
                   Delete
