@@ -137,11 +137,42 @@ export const AcademicHistoryDTO = z.object({
   DivisionOrGPA: z.string().optional(),
 });
 
+export const AwardDTO = z.object({
+  Title: z.string().min(1, "Award title is required"),
+  IssuingOrganization: z.string().min(1, "Issuing organization is required"),
+  YearReceived: z.date().optional().refine((date) => {
+    if (!date) return true; // Optional field
+    const currentYear = new Date().getFullYear();
+    const awardYear = date.getFullYear();
+    return awardYear >= 1900 && awardYear <= currentYear;
+  }, "Please enter a valid date"),
+});
+
+
+
+export const InterestDTO = z.object({
+
+  Name: z.string().min(1, "Please select at least one interest"),
+  OtherInterest: z.string().optional(),
+});
+
+
+
+export const OtherInformationDTO = z.object({
+ 
+  IsHosteller: z.number().int().refine((val) => [1, 2].includes(val), {
+    message: "Please select either Hosteller or Day Scholar",
+  }),
+  TransportationMethod: z.number().int().refine((val) => [1, 2, 3, 4].includes(val), {
+    message: "Please select a transportation method",
+  }),
+});
+
 
 export const StudentRegistrationDTO = z.object({
   StudentDTO,
   AddressDTO: z.array(AddressDTOs).min(1, "At least one address is required"),
-  GuardianDTO,
+  GuardianDTO : z.array(GuardianDTO),
   AcademicEnrollmentDTO,
   CitizenshipDTO,
   EmergencyDTO,
@@ -150,7 +181,10 @@ export const StudentRegistrationDTO = z.object({
   EthnicityDTO,
   BankDTO,
   ScholarshipDTO,
-  AcademicHistories: z.array(AcademicHistoryDTO)
+  AcademicHistories: z.array(AcademicHistoryDTO),
+  AwardDTO: z.array(AwardDTO).optional(),
+  OtherInformationDTO,
+  InterestDTO : z.array(InterestDTO).optional()
 });
 
 

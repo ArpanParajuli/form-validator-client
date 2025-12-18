@@ -51,16 +51,26 @@ if (data.AddressDTO && data.AddressDTO.length > 0) {
 }
 
 
-  
+    if (data.GuardianDTO && data.GuardianDTO.length > 0) {
+  data.GuardianDTO.forEach((GuardianDTOs: any, index: number) => {
+    formData.append(`GuardianDTO[${index}].fullName`, GuardianDTOs.FullName);
+    formData.append(`GuardianDTO[${index}].occupation`, GuardianDTOs.Occupation);
+    formData.append(`GuardianDTO[${index}].designation`, GuardianDTOs.Designation);
+    formData.append(`GuardianDTO[${index}].organization`, GuardianDTOs.Organization);
+    formData.append(`GuardianDTO[${index}].mobileNumber`, GuardianDTOs.MobileNumber);
+    formData.append(`GuardianDTO[${index}].email`, GuardianDTOs.Email);
+    formData.append(`GuardianDTO[${index}].relation`, GuardianDTOs.Relation.toString());
+  });
+}
 
 
-    formData.append("GuardianDTO.fullName", data.GuardianDTO.FullName);
-    formData.append("GuardianDTO.occupation", data.GuardianDTO.Occupation);
-    formData.append("GuardianDTO.designation", data.GuardianDTO.Designation);
-    formData.append("GuardianDTO.organization", data.GuardianDTO.Organization);
-    formData.append("GuardianDTO.mobileNumber", data.GuardianDTO.MobileNumber);
-    formData.append("GuardianDTO.email", data.GuardianDTO.Email);
-    formData.append("GuardianDTO.relation", data.GuardianDTO.Relation.toString());
+    // formData.append("GuardianDTO.fullName", data.GuardianDTO.FullName);
+    // formData.append("GuardianDTO.occupation", data.GuardianDTO.Occupation);
+    // formData.append("GuardianDTO.designation", data.GuardianDTO.Designation);
+    // formData.append("GuardianDTO.organization", data.GuardianDTO.Organization);
+    // formData.append("GuardianDTO.mobileNumber", data.GuardianDTO.MobileNumber);
+    // formData.append("GuardianDTO.email", data.GuardianDTO.Email);
+    // formData.append("GuardianDTO.relation", data.GuardianDTO.Relation.toString());
 
     formData.append("EmergencyDTO.emergencyContactName", data.EmergencyDTO.EmergencyContactName);
     formData.append("EmergencyDTO.emergencyContactRelation", data.EmergencyDTO.EmergencyContactRelation);
@@ -105,6 +115,33 @@ if (data.AcademicHistories && data.AcademicHistories.length > 0) {
   });
 }
 
+// AwardDTO array
+  if (data.AwardDTO && data.AwardDTO.length > 0) {
+    data.AwardDTO.forEach((award: any, index: number) => {
+      formData.append(`AwardDTO[${index}].Title`, award.Title);
+      formData.append(`AwardDTO[${index}].IssuingOrganization`, award.IssuingOrganization);
+      
+      // Handle date conversion
+      if (award.YearReceived) {
+        const yearReceived = award.YearReceived instanceof Date 
+          ? award.YearReceived.toISOString().split('T')[0] 
+          : new Date(award.YearReceived).toISOString().split('T')[0];
+        formData.append(`AwardDTO[${index}].YearReceived`, yearReceived);
+      }
+    });
+  }
+
+  // InterestDTO array
+  if (data.InterestDTO && data.InterestDTO.length > 0) {
+    data.InterestDTO.forEach((interest: any, index: number) => {
+      formData.append(`InterestDTO[${index}].Name`, interest.Name);
+      formData.append(`InterestDTO[${index}].OtherInterest`, interest.OtherInterest || "");
+    });
+  }
+
+  // ExtraInformationDTO
+  formData.append("OtherInformationDTO.IsHosteller", data.OtherInformationDTO.IsHosteller.toString());
+  formData.append("OtherInformationDTO.TransportationMethod", data.OtherInformationDTO.TransportationMethod.toString());
 
 
 formData.append("ScholarshipDTO.ScholarshipType", data.ScholarshipDTO.ScholarshipType || "");
@@ -130,7 +167,7 @@ formData.append("BankDTO.BankBranch", data.BankDTO.BankBranch || "");
 
 export const UpdateStudent = async (studentId: string, data: any) => {  
 
-    const student = data.StudentDTO;
+  const student = data.StudentDTO;
 
   const formData = new FormData();
 
@@ -166,16 +203,26 @@ if (data.AddressDTO && data.AddressDTO.length > 0) {
 }
 
 
-  
+    if (data.GuardianDTO && data.GuardianDTO.length > 0) {
+  data.GuardianDTO.forEach((GuardianDTOs: any, index: number) => {
+    formData.append(`GuardianDTO[${index}].fullName`, GuardianDTOs.FullName);
+    formData.append(`GuardianDTO[${index}].occupation`, GuardianDTOs.Occupation);
+    formData.append(`GuardianDTO[${index}].designation`, GuardianDTOs.Designation);
+    formData.append(`GuardianDTO[${index}].organization`, GuardianDTOs.Organization);
+    formData.append(`GuardianDTO[${index}].mobileNumber`, GuardianDTOs.MobileNumber);
+    formData.append(`GuardianDTO[${index}].email`, GuardianDTOs.Email);
+    formData.append(`GuardianDTO[${index}].relation`, GuardianDTOs.Relation.toString());
+  });
+}
 
 
-    formData.append("GuardianDTO.fullName", data.GuardianDTO.FullName);
-    formData.append("GuardianDTO.occupation", data.GuardianDTO.Occupation);
-    formData.append("GuardianDTO.designation", data.GuardianDTO.Designation);
-    formData.append("GuardianDTO.organization", data.GuardianDTO.Organization);
-    formData.append("GuardianDTO.mobileNumber", data.GuardianDTO.MobileNumber);
-    formData.append("GuardianDTO.email", data.GuardianDTO.Email);
-    formData.append("GuardianDTO.relation", data.GuardianDTO.Relation.toString());
+    // formData.append("GuardianDTO.fullName", data.GuardianDTO.FullName);
+    // formData.append("GuardianDTO.occupation", data.GuardianDTO.Occupation);
+    // formData.append("GuardianDTO.designation", data.GuardianDTO.Designation);
+    // formData.append("GuardianDTO.organization", data.GuardianDTO.Organization);
+    // formData.append("GuardianDTO.mobileNumber", data.GuardianDTO.MobileNumber);
+    // formData.append("GuardianDTO.email", data.GuardianDTO.Email);
+    // formData.append("GuardianDTO.relation", data.GuardianDTO.Relation.toString());
 
     formData.append("EmergencyDTO.emergencyContactName", data.EmergencyDTO.EmergencyContactName);
     formData.append("EmergencyDTO.emergencyContactRelation", data.EmergencyDTO.EmergencyContactRelation);
@@ -220,6 +267,33 @@ if (data.AcademicHistories && data.AcademicHistories.length > 0) {
   });
 }
 
+// AwardDTO array
+  if (data.AwardDTO && data.AwardDTO.length > 0) {
+    data.AwardDTO.forEach((award: any, index: number) => {
+      formData.append(`AwardDTO[${index}].Title`, award.Title);
+      formData.append(`AwardDTO[${index}].IssuingOrganization`, award.IssuingOrganization);
+      
+      // Handle date conversion
+      if (award.YearReceived) {
+        const yearReceived = award.YearReceived instanceof Date 
+          ? award.YearReceived.toISOString().split('T')[0] 
+          : new Date(award.YearReceived).toISOString().split('T')[0];
+        formData.append(`AwardDTO[${index}].YearReceived`, yearReceived);
+      }
+    });
+  }
+
+  // InterestDTO array
+  if (data.InterestDTO && data.InterestDTO.length > 0) {
+    data.InterestDTO.forEach((interest: any, index: number) => {
+      formData.append(`InterestDTO[${index}].Name`, interest.Name);
+      formData.append(`InterestDTO[${index}].OtherInterest`, interest.OtherInterest || "");
+    });
+  }
+
+  // ExtraInformationDTO
+  formData.append("OtherInformationDTO.IsHosteller", data.OtherInformationDTO.IsHosteller.toString());
+  formData.append("OtherInformationDTO.TransportationMethod", data.OtherInformationDTO.TransportationMethod.toString());
 
 
 formData.append("ScholarshipDTO.ScholarshipType", data.ScholarshipDTO.ScholarshipType || "");
@@ -232,6 +306,8 @@ formData.append("BankDTO.BankAccountHolderName", data.BankDTO.BankAccountHolderN
 formData.append("BankDTO.BankName", data.BankDTO.BankName || "");
 formData.append("BankDTO.BankAccountNumber", data.BankDTO.BankAccountNumber || "");
 formData.append("BankDTO.BankBranch", data.BankDTO.BankBranch || "");
+
+
 
     return await fetch(`${ServerURL}/api/student/update/${studentId}`, {
        method: 'PUT', 

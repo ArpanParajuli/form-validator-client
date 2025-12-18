@@ -11,7 +11,7 @@ export default function AcademicEnrollmentDetails() {
     register,
     control,
     formState: { errors },
-  } = useFormContext<StudentRegistrationDTOType>();
+  } = useFormContext<StudentUpdateDTOType>();
 
   return (
     <div className="space-y-6">

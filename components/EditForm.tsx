@@ -39,6 +39,11 @@ import AddressDetails from "@/components/student-update/AddressDetails";
 import SecondaryInfoDetails from "@/components/student-update/SecondaryInfoDetails";
 import AcademicHistoryDetails from "@/components/student-update/AcademicHistoryDetails";
 
+import InterestsSection from "./student-registration/InterestsSection";
+
+import AwardsSection from "./student-registration/AwardsSection";
+
+import ExtraInformationSection from "./student-registration/ExtraInformationSection";
 
 export default function EditStudentPage() {
   const params = useParams();
@@ -141,6 +146,18 @@ export default function EditStudentPage() {
                       <div className="my-6 border-t border-gray-300"></div>
 
                      <AcademicHistoryDetails /> 
+
+                      <div className="my-6 border-t border-gray-300"></div>
+
+                     <InterestsSection/>
+                         
+                          <div className="my-6 border-t border-gray-300"></div>
+
+                      <AwardsSection/> 
+
+                       <div className="my-6 border-t border-gray-300"></div>
+                       
+                   <ExtraInformationSection/>
          
          
              

@@ -2,34 +2,14 @@
 import { useFormContext, Controller } from "react-hook-form";
 import { StudentRegistrationDTOType } from "@/lib/schemas/studentCreate";
 
-
 import { StudentUpdateDTOType } from "@/lib/schemas/studentUpdate";
 
-type FormType = "register" | "update";
+export default function DocumentsDetails() {
 
-type Props = {
-  formType: FormType;
-};
-
-
-export default function DocumentsDetails({ formType }: Props) {
-
-    console.log(formType);
-  
-    var formContext;
-  
-    if(formType == "update"){
-       formContext = useFormContext<StudentUpdateDTOType>();
-    }
-  
-    else{
-       formContext = useFormContext<StudentRegistrationDTOType>();
-    }
-  
   const {
     control,
     formState: { errors },
-  } = formContext;
+  } = useFormContext<StudentRegistrationDTOType>();
 
   return (
     <div className="space-y-6">
@@ -54,6 +34,7 @@ export default function DocumentsDetails({ formType }: Props) {
               />
             )}
           />
+
           {errors.DocumentsDTO?.CharacterCertificate && (
             <p className="mt-1 text-sm text-red-600">{errors.DocumentsDTO.CharacterCertificate.message}</p>
           )}

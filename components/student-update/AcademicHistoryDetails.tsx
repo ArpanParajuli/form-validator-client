@@ -15,7 +15,7 @@ export default function AcademicHistoryDetails() {
     register,
     control,
     formState: { errors },
-  } = useFormContext<StudentRegistrationDTOType>();
+  } = useFormContext<StudentUpdateDTOType>();
 
   const { fields, append, remove } = useFieldArray({
     control,

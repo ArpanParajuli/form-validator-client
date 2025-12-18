@@ -17,20 +17,19 @@ export default function AddressDetails() {
     watch,
     setValue,
     formState: { errors },
-  } = useFormContext<StudentRegistrationDTOType>();
+  } = useFormContext<StudentUpdateDTOType>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "AddressDTO",
   });
 
-  // Check if we have at least one address and if IsPermanent is 1 and there's only one address
+
   const isPermanentOnly = fields.length === 1 && watch("AddressDTO.0.IsPermanent") === 1;
 
-  // Handle checkbox change
   const handleCheckboxChange = (checked: boolean) => {
     if (checked) {
-      // If checked, ensure we have only one address with IsPermanent = 1
+ 
       if (fields.length === 0) {
         append({
           IsPermanent: 1,

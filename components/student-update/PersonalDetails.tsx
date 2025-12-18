@@ -28,7 +28,7 @@ export default function PersonalDetails() {
         {/* Image Upload Field */}
         <div className="col-span-2 md:col-span-1">
           <label htmlFor="StudentDTO.ImagePath" className="block text-sm font-medium text-gray-700 mb-1">
-            Profile Image
+            Profile Image (Optional now)
           </label>
           
           <Controller

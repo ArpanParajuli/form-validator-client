@@ -119,7 +119,10 @@ export  function Dashboard() {
                   <span className="font-semibold">Mobile:</span> {student.PrimaryMobile}
                 </p>
                 <p>
-                  <span className="font-semibold">Gender:</span> {student.Gender}
+                  <span className="font-semibold">Gender:</span>
+                   {student.Gender == 1 && <span> Male</span>}
+                   {student.Gender == 2 && <span> Female</span>}
+                   {student.Gender == 3 && <span> Other</span>}
                 </p>
                 <p>
                   <span className="font-semibold">Date of Birth:</span>{" "}

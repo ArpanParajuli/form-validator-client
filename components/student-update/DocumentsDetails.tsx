@@ -15,13 +15,13 @@ export default function DocumentsDetails() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Documents</h2>
+      <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Documents (optional only add to update ) </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Character Certificate Field */}
         <div>
           <label htmlFor="characterCertificate" className="block text-sm font-medium text-gray-700 mb-1">
-            Character Certificate <span className="text-red-500">*</span>
+            Character Certificate (optional only add to update ) <span className="text-red-500">*</span>
           </label>
           <Controller
             name="DocumentsDTO.CharacterCertificate"
@@ -44,7 +44,7 @@ export default function DocumentsDetails() {
         {/* Signature Field */}
         <div>
           <label htmlFor="signature" className="block text-sm font-medium text-gray-700 mb-1">
-            Signature <span className="text-red-500">*</span>
+            Signature (optional only add to update )  <span className="text-red-500">*</span>
           </label>
           <Controller
             name="DocumentsDTO.Signature"
@@ -67,7 +67,7 @@ export default function DocumentsDetails() {
         {/* Citizenship Field */}
         <div>
           <label htmlFor="citizenship" className="block text-sm font-medium text-gray-700 mb-1">
-            Citizenship Document <span className="text-red-500">*</span>
+            Citizenship Document (optional only add to update )  <span className="text-red-500">*</span>
           </label>
           <Controller
             name="DocumentsDTO.Citizenship"

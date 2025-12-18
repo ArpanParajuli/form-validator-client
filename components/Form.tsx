@@ -23,6 +23,15 @@ import AcademicHistoryDetails from "./student-registration/AcademicHistoryDetail
 
 
 
+import AwardsSection from "./student-registration/AwardsSection";
+
+import ExtraInformationSection from "./student-registration/ExtraInformationSection";
+
+import InterestsSection from "./student-registration/InterestsSection";
+
+
+
+
 
 import { StudentRegistrationDTO , StudentRegistrationDTOType} from "@/lib/schemas/studentCreate";
 
@@ -53,15 +62,17 @@ const emptyDefaults: StudentRegistrationDTOType = {
   }],
 
 
-  GuardianDTO: {
-    FullName: "",
-    Occupation: "",
-    Designation: "",
-    Organization: "",
-    MobileNumber: "",
-    Email: "",
-    Relation: "",
-  },
+  // GuardianDTO: {
+  //   FullName: "",
+  //   Occupation: "",
+  //   Designation: "",
+  //   Organization: "",
+  //   MobileNumber: "",
+  //   Email: "",
+  //   Relation: "",
+  // },
+
+    GuardianDTO: [],
   AcademicEnrollmentDTO: {
     Faculty: "",
     Program: "",
@@ -120,7 +131,15 @@ const emptyDefaults: StudentRegistrationDTOType = {
         PassedYear: "",
         DivisionOrGPA: "",
       }
-    ]
+    ],
+
+    InterestDTO : [],
+    AwardDTO : [],
+
+    OtherInformationDTO : {
+  IsHosteller: 0,
+  TransportationMethod: 0
+}
 
 };
 
@@ -138,7 +157,7 @@ const Form = () => {
 
   const { errors } = methods.formState;
 
-  // Log errors for debugging
+
   console.log("RHF errors:", errors);
 
   const onSubmit = async (data: StudentRegistrationDTOType) => {
@@ -188,6 +207,16 @@ const Form = () => {
 
              <div className="my-6 border-t border-gray-300"></div>
             <AcademicHistoryDetails/> 
+          <div className="my-6 border-t border-gray-300"></div>
+
+            <InterestsSection/>
+            <div className="my-6 border-t border-gray-300"></div>
+            <ExtraInformationSection/>
+            <div className="my-6 border-t border-gray-300"></div>
+            <AwardsSection/>
+            <div className="my-6 border-t border-gray-300"></div>
+
+
     
              
 
