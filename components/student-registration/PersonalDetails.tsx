@@ -4,12 +4,13 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { StudentRegistrationDTOType } from "@/lib/schemas/studentCreate";
+import { useState } from "react";
+
+
 
 
 
 export default function PersonalDetails() {
-
-
   const {
     register,
     control,
@@ -19,6 +20,7 @@ export default function PersonalDetails() {
   } = useFormContext<StudentRegistrationDTOType>();
 
 
+  const [filePreview, setFilePreview] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
@@ -30,8 +32,20 @@ export default function PersonalDetails() {
           <label htmlFor="StudentDTO.ImagePath" className="block text-sm font-medium text-gray-700 mb-1">
             Profile Image
           </label>
+
+           {filePreview && (
+            <div className="mt-2 relative">
+              <img
+                src={filePreview}
+                alt="Profile Preview"
+                className="h-32 w-32 object-cover rounded-md border shadow-sm"
+              />
+    
+            </div>
+          )}
+
           
-          <Controller
+        <Controller
             name="StudentDTO.ImagePath"
             control={control}
             render={({ field }) => (
@@ -39,7 +53,22 @@ export default function PersonalDetails() {
                 id="StudentDTO.ImagePath"
                 type="file"
                 accept="image/*"
-                onChange={(e) => field.onChange(e.target.files?.[0])}
+                onChange={(e) => {
+                   const file = e.target.files?.[0];
+                   if(file){
+                       const previewUrl = URL.createObjectURL(file);
+                    setFilePreview(previewUrl);
+
+                   }
+
+                   else{
+
+                   }
+                }
+                  
+                    
+
+              }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
             )}

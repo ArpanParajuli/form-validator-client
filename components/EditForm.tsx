@@ -85,17 +85,21 @@ export default function EditStudentPage() {
 
     const result = await UpdateStudent(studentId, formData);
 
-    if (result.ok) {
+
       alert("Student updated successfully!");
-      // router.push("/");
-    } else {
-      alert("Update failed!");
-    }
+      router.push("/");
+      
+      if(!result.ok){
+         alert("Update failed!");
+      }
+      
   };
 
   return (
-    <div className="p-6">
+      <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
       <h1 className="text-2xl font-bold mb-6">Edit Student</h1>
+  
 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -168,5 +172,8 @@ export default function EditStudentPage() {
         </form>
       </FormProvider>
     </div>
+
+    </div>
+    
   );
 }

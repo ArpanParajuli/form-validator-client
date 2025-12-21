@@ -5,12 +5,9 @@ import { useState, useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { StudentUpdateDTOType } from "@/lib/schemas/studentUpdate";
 import { ServerURL } from "@/components/Dashboard";
-
-
+import { useWatch } from "react-hook-form";
 
 export default function PersonalDetails() {
- 
-
   const {
     register,
     control,
@@ -19,6 +16,25 @@ export default function PersonalDetails() {
     formState: { errors },
   } = useFormContext<StudentUpdateDTOType>();
 
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+  
+  // Get the server image path
+  const imagePath = `${ServerURL}${useWatch({
+    control,
+    name: "StudentDTO.ImagePath",
+  })}`;
+
+
+  useEffect(() => {
+    return () => {
+      if (filePreview) {
+        URL.revokeObjectURL(filePreview);
+      }
+    };
+  }, [filePreview]);
+
+  // Determine which image to show: file preview takes priority over server image
+  const displayImage = filePreview || (imagePath && imagePath !== `${ServerURL}undefined` ? imagePath : null);
 
   return (
     <div className="space-y-6">
@@ -28,22 +44,59 @@ export default function PersonalDetails() {
         {/* Image Upload Field */}
         <div className="col-span-2 md:col-span-1">
           <label htmlFor="StudentDTO.ImagePath" className="block text-sm font-medium text-gray-700 mb-1">
-            Profile Image (Optional now)
+            Profile Image (Optional)
           </label>
+          
+          {/* Image Preview */}
+          {displayImage && (
+            <div className="mt-2 relative">
+              <img
+                src={displayImage}
+                alt="Profile Preview"
+                className="h-32 w-32 object-cover rounded-md border shadow-sm"
+              />
+              {filePreview && (
+                <span className="absolute top-0 right-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-bl-md rounded-tr-md">
+                  New
+                </span>
+              )}
+            </div>
+          )}
           
           <Controller
             name="StudentDTO.ImagePath"
             control={control}
-            render={({ field }) => (
+            render={({ field: { onChange, value, ...field } }) => (
               <input
                 id="StudentDTO.ImagePath"
                 type="file"
                 accept="image/*"
-                onChange={(e) => field.onChange(e.target.files?.[0])}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    // Create preview for the selected file
+                    const previewUrl = URL.createObjectURL(file);
+                    setFilePreview(previewUrl);
+                    onChange(file);
+                  } else {
+                    // Clear preview if no file selected
+                    setFilePreview(null);
+                    onChange(undefined);
+                  }
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 mt-2"
               />
             )}
           />
+
+          {/* Helper text */}
+          <p className="mt-1 text-xs text-gray-500">
+            {filePreview 
+              ? "New image selected (will be uploaded on save)" 
+              : imagePath && imagePath !== `${ServerURL}undefined`
+              ? "Current profile image from server"
+              : "No profile image"}
+          </p>
           
           {errors.StudentDTO?.ImagePath && (
             <p className="mt-1 text-sm text-red-600">{errors.StudentDTO.ImagePath.message}</p>

@@ -62,14 +62,11 @@ export  function Dashboard() {
   }
 
   const handleEdit = (studentId: any) => {
-
-    alert(`Functionality to edit student ${studentId} would go here.`);
     router.push(`/edit/${studentId}`);
   };
 
   const handleDelete = async (studentId: any) => {
 
-    if (window.confirm(`Are you sure you want to delete student ${studentId}?`)) {
       alert(`API call to delete student ${studentId} would go here.`);
 
       await DeleteStudent(studentId);
@@ -77,7 +74,6 @@ export  function Dashboard() {
        setStudents(currentStudents =>
           currentStudents.filter(student => student.OwnerId !== studentId)
         );
-    }
   };
 
 
