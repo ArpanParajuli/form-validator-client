@@ -70,7 +70,8 @@ export default function AcademicEnrollmentDetails() {
             <option value="2">Master</option>
             <option value="3">Diploma</option>
             <option value="4">Certificate</option>
-             <option value="5">PhD</option>
+            <option value="5">PhD</option>
+
           </select>
           {errors.AcademicEnrollmentDTO?.Level && (
             <p className="mt-1 text-sm text-red-600">{errors.AcademicEnrollmentDTO.Level.message}</p>

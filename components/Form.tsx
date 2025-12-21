@@ -120,7 +120,7 @@ const emptyDefaults: StudentRegistrationDTOType = {
   ScholarshipDTO: {
     ScholarshipType: undefined,
     ScholarshipProviderName: "",
-    ScholarshipAmount: undefined,
+    ScholarshipAmount: 0,
   },
 
    AcademicHistories: [ 
@@ -239,14 +239,7 @@ const Form = () => {
           </form>
         </FormProvider>
         
-        {submittedData && (
-          <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded-md">
-            <h2 className="text-lg font-semibold text-green-800 mb-2">Form Submitted Successfully!</h2>
-            <pre className="text-sm text-green-700 overflow-auto">
-              {JSON.stringify(submittedData, null, 2)}
-            </pre>
-          </div>
-        )}
+
       </div>
     </div>
   );

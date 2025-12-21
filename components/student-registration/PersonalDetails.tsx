@@ -55,7 +55,9 @@ export default function PersonalDetails() {
                 accept="image/*"
                 onChange={(e) => {
                    const file = e.target.files?.[0];
+                    field.onChange(file); 
                    if(file){
+                   
                        const previewUrl = URL.createObjectURL(file);
                     setFilePreview(previewUrl);
 

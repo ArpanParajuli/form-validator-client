@@ -8,13 +8,17 @@ import { useEffect, useEffectEvent, useInsertionEffect, useState } from "react";
 
 
 import { ServerURL } from "@/components/Dashboard";
-import { fi } from "zod/locales";
+
+
+
 
 export default function DocumentsDetails() {
 
   const [CharacterCertificate , setCharacterCertificate] = useState<string | null>(null);
   const [Citizenship , setCitizenship]  = useState<string | null>(null);
   const [Signature , setSignature] = useState<string | null>(null);
+
+
 
   const {
     control,
@@ -40,7 +44,9 @@ export default function DocumentsDetails() {
       control,
       name: "DocumentsDTO.Signature",
     })}`;
+  
 
+    const previewForCitizenShip = (CitizenshipPath) ? CitizenshipPath:  Citizenship;
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold text-gray-700 border-b pb-2">Documents (optional only add to update ) </h2>
@@ -52,15 +58,22 @@ export default function DocumentsDetails() {
             Character Certificate (optional only add to update ) <span className="text-red-500">*</span>
           </label>
 
-          {CharacterCertificatePath && (
-            <div className="mt-2 relative">
-              <img
-                src={CharacterCertificatePath}
-                alt="Profile Preview"
-                className="h-32 w-32 object-cover rounded-md border shadow-sm"
-              />
-            </div>
-          )}
+        {(CharacterCertificate || CharacterCertificatePath) && (
+  <div className="mt-2 relative">
+    <img
+      src={CharacterCertificate || CharacterCertificatePath}
+      alt="Character Certificate Preview"
+      className="h-32 w-32 object-cover rounded-md border shadow-sm"
+    />
+  </div>
+)}
+
+          
+          
+
+         
+
+          
 
           <Controller
             name="DocumentsDTO.CharacterCertificate"
@@ -100,15 +113,21 @@ export default function DocumentsDetails() {
           </label>
 
 
-           {SignaturePath && (
-            <div className="mt-2 relative">
-              <img
-                src={CharacterCertificatePath}
-                alt="Profile Preview"
-                className="h-32 w-32 object-cover rounded-md border shadow-sm"
-              />
-            </div>
-          )}
+
+
+
+        {(Signature || SignaturePath) && (
+  <div className="mt-2 relative">
+    <img
+      src={Signature || SignaturePath}
+      alt="Character Certificate Preview"
+      className="h-32 w-32 object-cover rounded-md border shadow-sm"
+    />
+  </div>
+)}
+
+
+          
 
           <Controller
             name="DocumentsDTO.Signature"
@@ -146,16 +165,18 @@ export default function DocumentsDetails() {
           <label htmlFor="citizenship" className="block text-sm font-medium text-gray-700 mb-1">
             Citizenship Document (optional only add to update )  <span className="text-red-500">*</span>
           </label>
+          
+        {(Citizenship || CitizenshipPath) && (
+  <div className="mt-2 relative">
+    <img
+      src={Citizenship || CitizenshipPath}
+      alt="Character Certificate Preview"
+      className="h-32 w-32 object-cover rounded-md border shadow-sm"
+    />
+  </div>
+)}
 
-           {CitizenshipPath && (
-            <div className="mt-2 relative">
-              <img
-                src={CharacterCertificatePath}
-                alt="Profile Preview"
-                className="h-32 w-32 object-cover rounded-md border shadow-sm"
-              />
-            </div>
-          )}
+
 
           <Controller
             name="DocumentsDTO.Citizenship"

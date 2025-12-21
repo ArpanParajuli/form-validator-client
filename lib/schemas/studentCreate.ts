@@ -13,7 +13,11 @@ export const fileSchema = z
   })
   .refine((file) => file.size <= (5 * 1024 * 1024), {
     message: "File size must be less than 5MB",
-  })
+  }
+
+)
+
+  
  
 
 export const AddressDTOs = z.object({
@@ -36,11 +40,11 @@ export const AcademicEnrollmentDTO = z.object({
   Semester: z.number().int().refine((val) => [1,2,3,4,5,6,7,8].includes(val), {
     message: "Invalid Semester",
   }),
-  Section: z.string().optional(),
+  Section: z.string().min(1, "Section is required"),
   RollNumber: z.string().min(1, "Roll Number is required"),
   RegistrationNumber: z.string().min(1, "Registration Number is required"),
   EnrollDate: z.string().refine(val => !isNaN(Date.parse(val)), "Invalid date format"),
-  AcademicStatus: z.number().int(),
+  AcademicStatus: z.number("Academic status is required!").int().positive(),
 });
 
 
@@ -67,12 +71,12 @@ export const EmergencyDTO = z.object({
 
 export const GuardianDTO = z.object({
   FullName: z.string().min(1, "Guardian Full Name is required"),
-  Occupation: z.string().optional(),
-  Designation: z.string().optional(),
-  Organization: z.string().optional(),
+  Occupation: z.string().min(1, "Guardian Occupation is required"),
+  Designation: z.string().min(1, "Guardian Designation is required"),
+  Organization: z.string().min(1, "Guardian Organization is required"),
   MobileNumber: z.string().min(1, "Guardian Mobile Number is required"),
-  Email: z.string().email().optional(),
-  Relation: z.string().optional(),
+  Email: z.string().email().min(1, "Guardian Email is required"),
+  Relation: z.string().min(1, "Guardian Relation is required"),
 });
 
 
@@ -97,10 +101,10 @@ export const EthnicityDTO = z.object({
 
 
 export const BankDTO = z.object({
-  BankAccountHolderName: z.string().optional(),
-  BankName: z.string().optional(),
-  BankAccountNumber: z.string().optional(),
-  BankBranch: z.string().optional(),
+  BankAccountHolderName: z.string().min(1, "BankAccountHolderName is required"),
+  BankName: z.string().min(1, "BankName is required"),
+  BankAccountNumber: z.string().min(1, "BankAccountNumber is required"),
+  BankBranch: z.string().min(1, "BankBranch is required"),
 });
 
 
@@ -108,21 +112,21 @@ export const ScholarshipDTO = z.object({
   ScholarshipType: z.number().int().optional().refine((val) => val === undefined || [1, 2, 3].includes(val), {
     message: "Invalid Scholarship Type",
   }),
-  ScholarshipProviderName: z.string().optional(),
-  ScholarshipAmount: z.number().optional(),
+  ScholarshipProviderName: z.string().min(1 , "Scholarship Provider Name is required!"),
+  ScholarshipAmount: z.number("ScholarshipAmount is required!"),
 });
 
 
 export const StudentDTO = z.object({
   Id: z.number().int().positive().optional(),
   OwnerId: z.string().optional(),
-  ImagePath: fileSchema.optional(),
+  ImagePath: fileSchema,
   FirstName: z.string().min(1, "First Name is required").max(100),
   MiddleName: z.string().optional(),
   LastName: z.string().min(1, "Last Name is required").max(100),
   DateOfBirth: z.string().refine(val => !isNaN(Date.parse(val)), "Invalid date format"),
-  PlaceOfBirth: z.string().optional(),
-  Nationality: z.string().optional(),
+  PlaceOfBirth: z.string().min(1 , "Place of Birth is Required!").max(100),
+  Nationality: z.string().min(1 , "Nationality is required!").max(100),
   Email: z.string().email("Invalid email address"),
   PrimaryMobile: z.string().min(10, "Mobile number must be at least 10 characters").max(15),
   Gender: z.number().int().refine((val) => [1, 2, 3].includes(val), {
@@ -135,7 +139,7 @@ export const AcademicHistoryDTO = z.object({
   BoardUniversity: z.string().min(1, "Board/University is required"),
   InstitutionName: z.string().min(1, "Institution Name is required"),
   PassedYear: z.string().refine(val => !isNaN(Date.parse(val)), "Invalid date format"),
-  DivisionOrGPA: z.string().optional(),
+  DivisionOrGPA: z.string().min(1, "DivisionOrGPA is required"),
 });
 
 export const AwardDTO = z.object({
@@ -173,7 +177,7 @@ export const OtherInformationDTO = z.object({
 export const StudentRegistrationDTO = z.object({
   StudentDTO,
   AddressDTO: z.array(AddressDTOs).min(1, "At least one address is required"),
-  GuardianDTO : z.array(GuardianDTO),
+  GuardianDTO : z.array(GuardianDTO).min(1 , "At least one guardian information is required!"),
   AcademicEnrollmentDTO,
   CitizenshipDTO,
   EmergencyDTO,
