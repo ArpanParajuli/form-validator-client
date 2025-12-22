@@ -33,7 +33,7 @@ export default function PersonalDetails() {
     };
   }, [filePreview]);
 
-  // Determine which image to show: file preview takes priority over server image
+  
   const displayImage = filePreview || (imagePath && imagePath !== `${ServerURL}undefined` ? imagePath : null);
 
   return (

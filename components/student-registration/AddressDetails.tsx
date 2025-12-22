@@ -24,7 +24,6 @@ export default function AddressDetails() {
     name: "AddressDTO",
   });
 
-  // Check if we have at least one address and if IsPermanent is 1 and there's only one address
   const isPermanentOnly = fields.length === 1 && watch("AddressDTO.0.IsPermanent") === 1;
 
   // Handle checkbox change
